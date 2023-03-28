@@ -10,9 +10,7 @@ import { WorkoutService } from './services/workout.service';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 
-
-
-import {HttpClientModule} from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http'
 
 @NgModule({
   declarations: [
