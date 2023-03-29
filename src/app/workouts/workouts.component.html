@@ -1,0 +1,12 @@
+<div class="container pt-5">
+
+  <form [formGroup]="searchForm">
+    <input type="text" id="search" formControlName="search" />
+  </form>
+
+    <div *ngFor="let item of workoutData">
+        <p>
+          {{ item.name }} - {{ item.image}}
+        </p>
+    </div>
+</div>
