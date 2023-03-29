@@ -1,62 +1,44 @@
 import { Component, Output, OnInit, EventEmitter, Input } from '@angular/core';
-import { WorkoutService} from '../services/workout.service'
-import { FormControl, FormGroup } from '@angular/forms'
-import { Observable, debounceTime, distinctUntilChanged, switchMap } from 'rxjs'
-import { __values } from 'tslib';
-
+import { WorkoutService } from '../services/workout.service';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Observable, debounceTime, switchMap, debounce } from 'rxjs';
 
 
 @Component({
   selector: 'app-workouts',
   templateUrl: './workouts.component.html',
-  styleUrls: ['./workouts.component.less']
+  styleUrls: ['./workouts.component.less'],
 })
 
-
 export class WorkoutsComponent implements OnInit {
+  @Input() items: any;
+  @Output() filterChanged = new EventEmitter<any>();
 
-  
-  @Input() items:any
+  workoutData!: any[];
 
-  @Output() filterChanged = new EventEmitter<any>()
-
-  searchControl = new FormGroup({
+  searchForm = new FormGroup({
     search: new FormControl(''),
-    location: new FormControl('gym')
-  })
-  
-  workoutData!: any[]
-
-  items$ = this.workoutService.find({location: 'gym'})
+  });
 
   constructor(public workoutService: WorkoutService) {
-    this.searchControl.valueChanges.subscribe((values) => {
-      console.log();
-      this.filterChanged.emit({
-        query: values.search,
-        loaction: values.location
-      })
-    })
+    this.searchForm.valueChanges.pipe(debounceTime(300)).subscribe((values) => {
+      console.log(values);
+      this.getApi(values.search)
+    });
   }
   ngOnInit(): void {
-    this.getApi()
+    this.getApi();
   }
 
-  onFiltersChanged(filters: any) {
-    this.items$ = this.workoutService.find(filters)
-  }
 
-  getApi(): any {
-    this.workoutService.getApi().subscribe(
+
+  getApi(search?: string | null | undefined): any {
+    this.workoutService.getApi(search).subscribe(
       (data) => {
-        this.workoutData = data
+        this.workoutData = data;
       },
-      (err) => {
-        console.log(err);
-      }
     );
   }
 
-  exesLocation = ['gym', 'home']
-   
+  exesLocation = ['gym', 'home'];
 }

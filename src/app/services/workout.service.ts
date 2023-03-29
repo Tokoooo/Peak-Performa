@@ -15,8 +15,8 @@ export class WorkoutService {
 
   constructor(private httpClient: HttpClient) { }
   
-    getApi(): Observable<any> {
-      return this.httpClient.get<any>(`${API_URL}`, {
+    getApi(search?: string | null | undefined): Observable<any> {
+      return this.httpClient.get<any>(`${API_URL}?bodyPart=${search || ''}`, {
         headers: {
           'X-RapidAPI-Key': API_KEY,
           'X-RapidAPI-Host': API_HOST
@@ -34,11 +34,8 @@ export class WorkoutService {
       return throwError(errorMessage)
     }
 
-    find(filters?:any){
-      return this.httpClient.get<any>(`${API_URL}`, {
-          ...filters
-      })
-    }
+// ?bodyPart=neck&muscleTarget=biceps&equipmentUsed=band&count=4
+
 
 
 }
