@@ -16,7 +16,7 @@ export class WorkoutService {
   constructor(private httpClient: HttpClient) { }
   
     getApi(): Observable<any> {
-      return this.httpClient.get<any>(`${API_URL}v1/exercises`, {
+      return this.httpClient.get<any>(`${API_URL}`, {
         headers: {
           'X-RapidAPI-Key': API_KEY,
           'X-RapidAPI-Host': API_HOST
@@ -33,5 +33,12 @@ export class WorkoutService {
       }
       return throwError(errorMessage)
     }
+
+    find(filters?:any){
+      return this.httpClient.get<any>(`${API_URL}`, {
+          ...filters
+      })
+    }
+
 
 }

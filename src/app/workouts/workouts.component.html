@@ -1,0 +1,5 @@
+<div class="container pt-5">
+  <form [formGroup]="searchControl">
+    <input type="text" id="search" formControlName="search" (onFilterChanged)="filterChanged" />
+  </form>
+</div>

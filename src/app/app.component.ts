@@ -1,25 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { WorkoutService } from './services/workout.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less'],
+  styleUrls: ['./app.component.less']
 })
-export class AppComponent implements OnInit {
-  constructor(public workoutService: WorkoutService) {}
-  ngOnInit(): void {
-    throw new Error('');
-  }
-
-  getApi(): any {
-    this.workoutService.getApi().subscribe(
-      (data) => {
-        console.log(data);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
+export class AppComponent {
+  title = 'peak-performa';
 }
