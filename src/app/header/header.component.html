@@ -1,13 +1,33 @@
-<header  id="header" class="">
-    <div class="container floating-item">
-        <h1 class="logo mr-auto"><a routerLink="/">Peak Performa</a></h1>
+<header id="header">
+  <nav class="navbar sticky-top navbar-expand-lg bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="#">Logo</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
 
-        <nav class="nav-menu d-none d-lg-block">
-            <ul>
-                <li><a class="active" routerLink="/">Home</a></li>
-                <li><a routerLink="/workouts">Workouts</a></li>
-            </ul>
-        </nav>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto w-100 justify-content-end">
+          <li class="nav-item active">
+            <a class="nav-link" href="#" routerLink="/">Home<span class="sr-only"></span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" routerLink="/about">About</a>
+          </li>
 
+          <li class="nav-item">
+            <a class="nav-link" href="#" routerLink="/workouts">Workouts</a>
+          </li>
+        </ul>
+      </div>
     </div>
+  </nav>
 </header>

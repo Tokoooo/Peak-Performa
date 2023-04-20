@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
+  // imageSrc:any = require('./images/8888888888-removebg-preview.png')
+
 }
