@@ -29,7 +29,7 @@ const routes: Routes = [
     component: LoginComponent, path: 'login'
   },
   {
-    path: '', redirectTo: 'login' , pathMatch: 'full'
+    path: '', redirectTo: 'home' , pathMatch: 'full'
   },
   {
     component: PageNotFoundComponent, path: '**'

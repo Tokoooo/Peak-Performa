@@ -1,4 +1,5 @@
 <div class="container pt-5">
+  
   <form [formGroup]="searchForm">
    <select value="Select Workout" id="search" formControlName="search">   
       <option value="back">Back</option>
@@ -13,11 +14,12 @@
       <option value="waist">Waist</option>
    </select>
   </form>
-    <div *ngFor="let item of workoutData | paginate: { itemsPerPage: 15}">
+
+    <div *ngFor="let item of workoutData">
         <p>
           {{ item.name }}
         </p>
         <img src="http://d205bpvrqc9yn1.cloudfront.net/{{ item.id }}.gif" alt="">   
     </div>
-    <pagination-controls (pageChange)="p = $event" class="float-right"></pagination-controls>
+    <!-- <pagination-controls (pageChange)="p = $event" class="float-right"></pagination-controls> -->
 </div>

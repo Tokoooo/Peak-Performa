@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "first-project-5c422": {
+      "hosting": {
+        "peak-performa": [
+          "first-project-5c422"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "first-project-5c422"
+  }
+}
