@@ -20,7 +20,9 @@ import { FormsModule} from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
 
 import { RegistrationComponent } from './registration/registration.component';
-import { AngularFireModule } from '@angular/fire'
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { AngularFireAuthModule } from "@angular/fire/compat/auth";
+import { AngularFireModule } from '@angular/fire/compat';
 import { LoginComponent } from './login/login.component';
 import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component'
 
@@ -37,9 +39,9 @@ import { MatInputModule } from '@angular/material/input';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-import { MatMenuModule } from '@angular/material/menu';
-import { getStorage, provideStorage } from '@angular/fire/storage';
+
 import {MatCardModule} from '@angular/material/card';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -69,15 +71,8 @@ import {MatCardModule} from '@angular/material/card';
     MatInputModule,
     MatPaginatorModule,
     MatCardModule,
-    AngularFireModule.initializeApp({
-      apiKey: "AIzaSyDpXzBVF2brRv-GBf7hXX0nyMuQnds064Q",
-      authDomain: "first-project-5c422.firebaseapp.com",
-      databaseURL: "https://first-project-5c422-default-rtdb.firebaseio.com",
-      projectId: "first-project-5c422",
-      storageBucket: "first-project-5c422.appspot.com",
-      messagingSenderId: "974767843493",
-      appId: "1:974767843493:web:e9ebeae0a9696598db854c"
-    })
+    AngularFireAuthModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
   providers: [
     WorkoutService,
