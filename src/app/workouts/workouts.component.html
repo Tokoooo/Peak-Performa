@@ -1,12 +1,25 @@
 <div class="container pt-5">
-
+  
   <form [formGroup]="searchForm">
-    <input type="text" id="search" formControlName="search" />
+   <select value="Select Workout" id="search" formControlName="search">   
+      <option value="back">Back</option>
+      <option value="cardio">Cardio</option>
+      <option value="chest">Chest</option>
+      <option value="lower arms">Lower arms</option>
+      <option value="lower legs">Lower legs</option>
+      <option value="neck">Neck</option>
+      <option value="shoulders">Shoulders</option>
+      <option value="upper arms">Upper Arms</option>
+      <option value="upper legs">Upper Legs</option>
+      <option value="waist">Waist</option>
+   </select>
   </form>
 
     <div *ngFor="let item of workoutData">
         <p>
-          {{ item.name }} - {{ item.image}}
+          {{ item.name }}
         </p>
+        <img src="http://d205bpvrqc9yn1.cloudfront.net/{{ item.id }}.gif" alt="">   
     </div>
+    <!-- <pagination-controls (pageChange)="p = $event" class="float-right"></pagination-controls> -->
 </div>

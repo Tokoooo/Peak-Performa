@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable, catchError, pipe, throwError } from 'rxjs';
+import { Observable, catchError, pipe, throwError, of } from 'rxjs';
 
 const API_KEY = environment.API_KEY
 const API_HOST = environment.API_HOST
@@ -16,7 +16,10 @@ export class WorkoutService {
   constructor(private httpClient: HttpClient) { }
   
     getApi(search?: string | null | undefined): Observable<any> {
-      return this.httpClient.get<any>(`${API_URL}?bodyPart=${search || ''}`, {
+      if(!search) {
+        return of ([])
+      }
+       return this.httpClient.get<any>(`${API_URL}exercises/bodyPart/${search || ''}`, {
         headers: {
           'X-RapidAPI-Key': API_KEY,
           'X-RapidAPI-Host': API_HOST
@@ -33,9 +36,5 @@ export class WorkoutService {
       }
       return throwError(errorMessage)
     }
-
-// ?bodyPart=neck&muscleTarget=biceps&equipmentUsed=band&count=4
-
-
 
 }

@@ -14,15 +14,15 @@ export class WorkoutsComponent implements OnInit {
   @Input() items: any;
   @Output() filterChanged = new EventEmitter<any>();
 
-  workoutData!: any[];
+  workoutData!: any;
+  workoutID!: number;
 
   searchForm = new FormGroup({
     search: new FormControl(''),
   });
 
   constructor(public workoutService: WorkoutService) {
-    this.searchForm.valueChanges.pipe(debounceTime(300)).subscribe((values) => {
-      console.log(values);
+    this.searchForm.valueChanges.pipe(debounceTime(400)).subscribe((values) => {
       this.getApi(values.search)
     });
   }
@@ -30,15 +30,12 @@ export class WorkoutsComponent implements OnInit {
     this.getApi();
   }
 
-
-
   getApi(search?: string | null | undefined): any {
     this.workoutService.getApi(search).subscribe(
       (data) => {
         this.workoutData = data;
+        this.workoutID = this.workoutData[0]?.id                        
       },
     );
   }
-
-  exesLocation = ['gym', 'home'];
 }
