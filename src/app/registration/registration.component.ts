@@ -3,47 +3,34 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { matchPassword} from '../../matchpassword.validator'
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.less'],
 })
+
+
 export class RegistrationComponent {
-  registrationForm!: FormGroup;
-  // reEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-  // rePass = '/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm'
+  firstname: string = ''
+  registrationForm: FormGroup = new FormGroup({
+    firstname: new FormControl('', Validators.required),
+    username: new FormControl('', [Validators.required, Validators.email]),
+    Password: new FormControl('', [Validators.required]),
+    ConfirmPassword: new FormControl(null, [Validators.required]),
+  })
 
-  constructor(private http: HttpClient, private router: Router) {
-    this.registrationForm = new FormGroup({
-      firstname: new FormControl(null, Validators.required),
-      // email: new FormControl(null, [Validators.required, Validators.email]),  
-      Password: new FormControl(null, ([Validators.required, Validators.minLength(8), Validators.maxLength(32)])),
-      ConfirmPassword: new FormControl(null, [Validators.required, Validators.minLength(8), Validators.maxLength(32)]),
-    },
-    {
-      validators: matchPassword
-    }
-    );
+
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {}
+
+
+  registerWithEmailAndPassword(){
+    const userData = Object.assign(this.registrationForm.value, {email: this.registrationForm?.value?.username})
+    this.authService.registerWithEmailAndPassword(userData).then((res: any) => {
+      this.router.navigateByUrl('home')
+    }).catch((error: any) => {
+      console.error(error)
+    })
   }
-
-  // emailValidator(control: { value: string; }) {
-  //   if (control.value) {
-  //     const matches = control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/);
-  //     return matches ? null : { 'invalidEmail': true };
-  //   } else {
-  //     return null;
-  //   }
-  // }
-
-  onSubmit() {
-    this.http
-      .post(
-        'https://first-project-5c422-default-rtdb.firebaseio.com/users.json',
-        this.registrationForm.value
-      )
-      .subscribe((response) => console.log(response));
-      this.router.navigate(['/home'])
-  }
-
 }

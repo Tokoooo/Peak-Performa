@@ -35,13 +35,13 @@ export class LoginComponent {
     })
   }
 
-  // get email() {
-  //   return this.loginForm.get('email')
+  // loginWithEmailAndPassword(){
+  //   const userData = Object.assign(this.loginForm.value, {email: this.loginForm?.value?.username})
+  //   this.authService.signInWithEmailAndPassword(userData).then((res: any) => {
+  //     this.router.navigateByUrl('home')
+  //   }).catch((error: any) => {
+  //     console.error(error)
+  //   })
   // }
-
-  // get password() {
-  //   return this.loginForm.get('password')
-  // }    
-
 
 }

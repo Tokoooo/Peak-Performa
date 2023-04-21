@@ -15,11 +15,13 @@
    </select>
   </form>
 
-    <div *ngFor="let item of workoutData">
+    <div *ngFor="let item of workoutData | paginate: {itemsPerPage: 10, currentPage: p}">
         <p>
           {{ item.name }}
         </p>
         <img src="http://d205bpvrqc9yn1.cloudfront.net/{{ item.id }}.gif" alt="">   
     </div>
-    <!-- <pagination-controls (pageChange)="p = $event" class="float-right"></pagination-controls> -->
+    <div class="mt-8 py-5 d-flex justify-content-center align-items-center">
+      <pagination-controls (pageChange)="p = $event" class="float-right"></pagination-controls>
+    </div>
 </div>

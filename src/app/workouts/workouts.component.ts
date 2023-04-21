@@ -13,6 +13,9 @@ import { Observable, debounceTime, switchMap, debounce } from 'rxjs';
 export class WorkoutsComponent implements OnInit {
   @Input() items: any;
   @Output() filterChanged = new EventEmitter<any>();
+  p: number = 1
+  itemsPerPage: number = 15
+  totalWorkouts: any;
 
   workoutData!: any;
   workoutID!: number;
@@ -34,7 +37,8 @@ export class WorkoutsComponent implements OnInit {
     this.workoutService.getApi(search).subscribe(
       (data) => {
         this.workoutData = data;
-        this.workoutID = this.workoutData[0]?.id                        
+        this.workoutID = this.workoutData[0]?.id      
+        this.totalWorkouts = data.length                  
       },
     );
   }
