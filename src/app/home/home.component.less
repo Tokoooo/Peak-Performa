@@ -1,9 +1,21 @@
 mat-toolbar {
   justify-content: space-between;
+  flex: 1 1 auto;
 }
 
-mat-card {
-  max-width: 600px;
-  margin: auto;
-  margin-top: 200px;
+mat-toolbar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.hero {
+  height: 100vh;
+  background-image: url('../../assets/landing-photo.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }

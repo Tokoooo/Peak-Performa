@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { matchPassword} from '../../matchpassword.validator'
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-registration',
@@ -13,24 +14,24 @@ import { AuthService } from '../services/auth.service';
 
 
 export class RegistrationComponent {
-  firstname: string = ''
+
   registrationForm: FormGroup = new FormGroup({
-    firstname: new FormControl('', Validators.required),
-    username: new FormControl('', [Validators.required, Validators.email]),
-    Password: new FormControl('', [Validators.required]),
-    ConfirmPassword: new FormControl(null, [Validators.required]),
+    email: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    confirmPassword: new FormControl(null, [Validators.required, Validators.minLength(8)]),
   })
-
-
+  
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) {}
 
-
   registerWithEmailAndPassword(){
-    const userData = Object.assign(this.registrationForm.value, {email: this.registrationForm?.value?.username})
-    this.authService.registerWithEmailAndPassword(userData).then((res: any) => {
+    this.authService.registerWithEmailAndPassword(this.registrationForm.value).then((res: any) => {
       this.router.navigateByUrl('home')
     }).catch((error: any) => {
-      console.error(error)
+      if (error.code === 'auth/email-already-in-use') {
+        this.registrationForm.get('email')?.setErrors({ emailInUse: true })
+      } else {
+        console.error('Error signing up:', error);
+      }
     })
   }
 }

@@ -1,7 +1,13 @@
-import { Component, Output, OnInit, EventEmitter, Input } from '@angular/core';
-import { WorkoutService } from '../services/workout.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Observable, debounceTime, switchMap, debounce } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { setCurrentPage, setSearchQuery } from '../store/actions/workouts.action';
+import { WorkoutState } from '../store/state/workouts.state';
+import { selectWorkouts } from '../store/selectors/workouts.selector'
+import { HttpClient } from '@angular/common/http';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { NumberInput } from '@angular/cdk/coercion';
 
 
 @Component({
@@ -11,35 +17,38 @@ import { Observable, debounceTime, switchMap, debounce } from 'rxjs';
 })
 
 export class WorkoutsComponent implements OnInit {
-  @Input() items: any;
-  @Output() filterChanged = new EventEmitter<any>();
-  p: number = 1
-  itemsPerPage: number = 15
-  totalWorkouts: any;
 
-  workoutData!: any;
+
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
+
+  p!: number;
+  itemsPerPage!: number;
   workoutID!: number;
 
+  dataSource = new MatTableDataSource<any>([]);
+
+  workoutData = this.store.pipe(select(selectWorkouts));
   searchForm = new FormGroup({
     search: new FormControl(''),
   });
-
-  constructor(public workoutService: WorkoutService) {
-    this.searchForm.valueChanges.pipe(debounceTime(400)).subscribe((values) => {
-      this.getApi(values.search)
+totalItems: NumberInput;
+pageSize: NumberInput;
+currentPage: any;
+  
+  constructor(private store: Store<WorkoutState>, private http: HttpClient) {
+    this.searchForm.valueChanges.subscribe((values) => {
+     this.store.dispatch(setSearchQuery({ query: values.search }));
     });
   }
+
+
   ngOnInit(): void {
-    this.getApi();
+    this.store.dispatch(setSearchQuery({ query : ""}));
   }
 
-  getApi(search?: string | null | undefined): any {
-    this.workoutService.getApi(search).subscribe(
-      (data) => {
-        this.workoutData = data;
-        this.workoutID = this.workoutData[0]?.id      
-        this.totalWorkouts = data.length                  
-      },
-    );
+  pageChanged(event: PageEvent): void {
+    this.store.dispatch(setCurrentPage({ page: event.pageIndex + 1 }));
   }
+
 }

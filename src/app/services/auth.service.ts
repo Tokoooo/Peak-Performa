@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, from } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { GoogleAuthProvider } from 'firebase/auth';
 
@@ -17,7 +16,17 @@ export class AuthService {
   registerWithEmailAndPassword(user: { email: string; password: string }) {
     return this.afs.createUserWithEmailAndPassword(user.email, user.password);
   }
-  signInWithEmailAndPassword(user: { email: string; password: string }) {
-    return this.afs.signInWithEmailAndPassword(user.email, user.password);
+  signInWithEmailAndPassword(user: Partial<{ email: string | null;  password: string | null }>) {
+    return this.afs.signInWithEmailAndPassword(user.email!, user.password!);
   }
+
+  isLoggedIn(): boolean {
+    return !!this.afs.authState;
+  }
+
+  isLoggedOut(): void {
+    // Logout the user
+  }
+
+
 }

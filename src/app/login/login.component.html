@@ -9,13 +9,11 @@
           <form [formGroup]="loginForm">
             <div class="form-outline mb-4">
               <input type="email" id="form3Example3" class="form-control form-control-lg"
-                placeholder="Enter a valid email address" formControlName="username"/>
-                <!-- <mat-error *ngIf="email?.errors?.['required']">
-                  
-                </mat-error>
-                <mat-error *ngIf="email?.errors?.['email']">
-                  Enter a Email
-                </mat-error> -->
+                placeholder="Enter a valid email address" formControlName="email"/>
+                <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)" class="text-danger">
+                  <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</div>
+                  <div *ngIf="loginForm.get('email')?.errors?.['email']">Email must be a valid email address</div>
+                </div>
             </div>
 
             <div class="form-outline mb-3 position-relative">
@@ -23,16 +21,17 @@
                 placeholder="Enter password" formControlName="password"/>
                 <mat-icon class="position-absolute top-50 end-0 translate-middle-y mr-3" role="button" (click)="hide = !hide" matSuffix>
                   {{ hide ? 'visibility_off' : 'visibility' }}
-                </mat-icon>
-                
+                </mat-icon>    
             </div>
-            <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
-              Password is required
-            </mat-error>
+
+            <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" class="text-danger">
+              <div *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</div>
+              <div *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters</div>
+            </div>
   
             <div class="text-center mt-4 pt-2">
-              <button type="button" class="btn btn-primary btn-lg"
-                style="padding-left: 2.5rem; padding-right: 2.5rem;">
+              <button (click)="loginWithEmailAndPassword()" type="button" class="btn btn-primary btn-lg"
+                style="padding-left: 2.5rem; padding-right: 2.5rem;" [disabled]="!loginForm.valid">
                 Login
               </button>
               <hr>
@@ -49,5 +48,5 @@
         </div>
       </div>
     </div>
-   
   </section>
+ 
