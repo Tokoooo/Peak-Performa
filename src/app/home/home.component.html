@@ -1,19 +1,39 @@
-<mat-toolbar color="primary">
-    Sign up Flow with Firebase
-    <button mat-button routerLink="/login">
-      <mat-icon>
-        login
-      </mat-icon>
-      Login
-    </button>
-  </mat-toolbar>
-  
-<mat-card class="text-center">
-  A fitness website is a place to introduce people to the fitness parlor, 
-  the philosophy, and any special focuses. Besides these, a site can achieve 
-  so much more. With the right tools, it helps to manage a schedule, appointments, and payments.
-   It is also powerful in creating a community and engaging clients.
-</mat-card>
+<app-header></app-header>
 
-  <router-outlet></router-outlet>
+<div class="hero-image">
+  <div class="container h-100">
+    <div class="row h-100 align-items-center">
+      <div class="col-lg-6">
+        <h1>Welcome to our Fitness Website</h1>
+        <p class="lead mb-5">We offer a variety of fitness programs to help you achieve your goals</p>
+        <a class="btn btn-primary btn-lg" href="#" routerLink="/workouts" role="button">Learn more</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container my-5">
+  <div class="row">
+    <div class="col-lg-4 border border-left-0 border-top-0 border-bottom-0">
+      <h2>BMI (Body Mass Index) calculator</h2>
+      <p>A BMI calculator is a tool that can help you determine your body mass index, which is a measure of your body fat based on your height and weight. Knowing your BMI can be useful in assessing your overall health and identifying any potential risks associated with your weight.</p>
+      <a class="btn btn-secondary" href="#" routerLink="/calculator" role="button">Learn more</a>
+    </div>
+    <div class="col-lg-4 border border-left-0 border-top-0 border-bottom-0">
+      <h2>Nutrition and exercise can impact your BMI</h2>
+      <p>Want to learn more about how nutrition and exercise can impact your BMI?</p>
+    <ul>
+      <li><a href="https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html" target="_blank">BMI for Adults</a></li>
+      <li><a href="https://www.nhlbi.nih.gov/health/educational/lose_wt/risk.htm" target="_blank">Calculate Your Risk</a></li>
+      <li><a href="https://www.niddk.nih.gov/health-information/weight-management/body-mass-index-bmi" target="_blank">Body Mass Index (BMI) in Adults</a></li>
+    </ul>
 
+    </div>
+    <div class="col-lg-4">
+      <h2>BFC (Body Fat Calculator)</h2>
+      <p>Knowing your body fat percentage can help you better understand your overall health and fitness level. Our Body Fat Calculator is a simple and effective tool that allows you to quickly and easily determine your body fat percentage. By entering just a few measurements, you can get an accurate estimate of your body fat, which can help you make more informed decisions about your diet and exercise routine.</p>
+      <a class="btn btn-secondary" href="#" routerLink="/bodyFatCalc" role="button">Learn more</a>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

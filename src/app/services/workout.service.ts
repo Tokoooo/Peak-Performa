@@ -16,7 +16,7 @@ export class WorkoutService {
   constructor(private httpClient: HttpClient) { }
   
     getApi(search?: string | null | undefined): Observable<any> {
-      if(!search) {
+      if(!search){
         return of ([])
       }
        return this.httpClient.get<any>(`${API_URL}exercises/bodyPart/${search || ''}`, {

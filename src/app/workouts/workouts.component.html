@@ -1,7 +1,13 @@
+<app-header></app-header>
 <div class="container pt-5">
-  
+
+  <div class="text-center mb-5">
+    Here you can see any kind of workouts by body part
+  </div>
+
   <form [formGroup]="searchForm">
-   <select value="Select Workout" id="search" formControlName="search">   
+    <select id="search" formControlName="search" class="form-select">
+      <option value="" disabled selected>Select Workout</option>
       <option value="back">Back</option>
       <option value="cardio">Cardio</option>
       <option value="chest">Chest</option>
@@ -12,14 +18,36 @@
       <option value="upper arms">Upper Arms</option>
       <option value="upper legs">Upper Legs</option>
       <option value="waist">Waist</option>
-   </select>
+    </select>
   </form>
 
-    <div *ngFor="let item of workoutData">
-        <p>
-          {{ item.name }}
-        </p>
-        <img src="http://d205bpvrqc9yn1.cloudfront.net/{{ item.id }}.gif" alt="">   
+  <div>
+    <h1>Workout List</h1>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div
+      class="col"
+      *ngFor="let item of workoutData | async"
+    >
+      <div class="card h-100">
+        <img
+          src="http://d205bpvrqc9yn1.cloudfront.net/{{ item.id }}.gif"
+          class="card-img-top"
+          alt="workouts"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ item.name }}</h5>
+          <h6 class="card-description">Target: {{ item.target }}</h6>
+        </div>
+      </div>
     </div>
-    <!-- <pagination-controls (pageChange)="p = $event" class="float-right"></pagination-controls> -->
+  </div>
+
+  <div class="mt-8 py-5 d-flex justify-content-center align-items-center">
+    <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageIndex]="currentPage - 1" [pageSizeOptions]="[10, 20, 50, 100]" (page)="pageChanged($event)"></mat-paginator>
+  </div>
+
 </div>
+
+

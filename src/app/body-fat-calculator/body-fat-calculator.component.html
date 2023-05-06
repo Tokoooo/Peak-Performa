@@ -1,0 +1,38 @@
+<app-header></app-header>
+<div class="container my-5">
+    <h2>Body Fat Calculator</h2>
+    <form [formGroup]="bodyMassForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="waist">Waist (cm)</label>
+        <input type="number" class="form-control" formControlName="waist" id="waist" placeholder="Enter waist">
+        <div *ngIf="bodyMassForm.get('waist')?.invalid && (bodyMassForm.get('waist')?.dirty || bodyMassForm.get('waist')?.touched)" class="text-danger">
+          <div *ngIf="bodyMassForm.get('waist')?.errors?.['required']">Waist is required</div>
+          <div *ngIf="bodyMassForm.get('waist')?.errors?.['min']">Waist must be greater than 0</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="hip">Hip (cm)</label>
+        <input type="number" class="form-control" formControlName="hip" id="hip" placeholder="Enter hip">
+        <div *ngIf="bodyMassForm.get('hip')?.invalid && (bodyMassForm.get('hip')?.dirty || bodyMassForm.get('hip')?.touched)" class="text-danger">
+          <div *ngIf="bodyMassForm.get('hip')?.errors?.['required']">Hip is required</div>
+          <div *ngIf="bodyMassForm.get('hip')?.errors?.['min']">Hip must be greater than 0</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="weight">Weight (kg)</label>
+        <input type="number" class="form-control" formControlName="weight" id="weight" placeholder="Enter weight">
+        <div *ngIf="bodyMassForm.get('weight')?.invalid && (bodyMassForm.get('weight')?.dirty || bodyMassForm.get('weight')?.touched)" class="text-danger">
+          <div *ngIf="bodyMassForm.get('weight')?.errors?.['required']">Weight is required</div>
+          <div *ngIf="bodyMassForm.get('weight')?.errors?.['min']">Weight must be greater than 0</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Calculate</button>
+      </div>
+    </form>
+    <div class="mt-3" *ngIf="bfc">
+      <h3>Your Body Fat Percentage</h3>
+      <p>{{ bfc | number:'1.0-2' }} %</p>
+    </div>
+  </div>
+  

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-header',
@@ -7,6 +8,16 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
-  // imageSrc:any = require('./images/8888888888-removebg-preview.png')
+  constructor( private auth: AngularFireAuth){ }
+
+  isCollapsed = true;
+
+  toggleCollapse(): void {
+    this.isCollapsed = !this.isCollapsed;
+  }
+
+  onLogOut(){
+    this.auth.signOut()
+  }
 
 }
